@@ -15,8 +15,7 @@
 	<description>E2EE Journal App</description>
 	<properties>
 		<java.version>1.8</java.version>
-		<sonar.host.url>http://localhost:9000</sonar.host.url>
-		<sonar.token>sqa_d05dcf6eb135adb18af97ddda998ce0855989398</sonar.token>
+		<sonar.organization>prince-borad29</sonar.organization>	
 	</properties>
 	<dependencies>
 		<dependency>
