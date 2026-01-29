@@ -27,7 +27,6 @@ public class JournalEntryService {
     public void saveEntry(JournalEntry entry, String username){
         try {
             Users user = userService.findByUsername(username);
-            entry.setDate(LocalDateTime.now());
             JournalEntry save = journalEntryRepo.save(entry);
             user.getJournalEntries().add(save);
             userService.saveUser(user);
@@ -45,12 +44,12 @@ public class JournalEntryService {
         return journalEntryRepo.findAll();
     }
 
-    public Optional<JournalEntry> findById(ObjectId id){
+    public Optional<JournalEntry> findById(String id){
         return journalEntryRepo.findById(id);
     }
 
     @Transactional
-    public boolean deleteEntryById(ObjectId id, String username){
+    public boolean deleteEntryById(String id, String username){
         boolean removed;
         try {
             Users user = userService.findByUsername(username);

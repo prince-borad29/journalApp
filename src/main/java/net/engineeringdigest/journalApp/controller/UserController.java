@@ -1,8 +1,11 @@
 package net.engineeringdigest.journalApp.controller;
 
+import io.swagger.v3.oas.annotations.tags.Tag;
+import lombok.extern.slf4j.Slf4j;
 import net.engineeringdigest.journalApp.api.response.WeatherResponse;
 import net.engineeringdigest.journalApp.entity.Users;
 import net.engineeringdigest.journalApp.repository.UserRepository;
+import net.engineeringdigest.journalApp.scheduler.UserScheduler;
 import net.engineeringdigest.journalApp.service.UserService;
 import net.engineeringdigest.journalApp.service.WeatherService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,8 +15,10 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
+@Slf4j
 @RestController
 @RequestMapping("/user")
+@Tag(name="User APIs",description = "Add , Edit , Delete User")
 public class UserController {
 
     @Autowired
@@ -24,6 +29,9 @@ public class UserController {
 
     @Autowired
     private WeatherService weatherService;
+
+    @Autowired
+    private UserScheduler userScheduler;
 
     @PutMapping
     public ResponseEntity<?> updateUser(@RequestBody Users user) {
@@ -55,11 +63,22 @@ public class UserController {
         String greeting = "";
 
         if(res != null){
-            greeting += " , Weather Feels Like " + res.getCurrent().getFeelsLike();
+            try {
+                greeting += " , Weather Feels Like " + res.getCurrent().getFeelsLike();
+            } catch (Exception e) {
+                log.error("Error : User Service :: " + e.getMessage());
+            }
         }
 
         return new ResponseEntity<>("Hi , " + authentication.getName() + greeting ,
                 HttpStatus.OK);
     }
+
+//    @GetMapping("get-sa")
+//    public void getSaNow(){
+//        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+//
+//        userScheduler.fetchUserAndSendSaMail();
+//    }
 
 }

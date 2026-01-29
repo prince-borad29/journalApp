@@ -3,10 +3,10 @@ package net.engineeringdigest.journalApp;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
-//@SpringBootTest
+@SpringBootTest
 class JournalAppApplicationTests {
 
-//	@Test
+	@Test
 	void contextLoads() {
 	}
 
