@@ -1,6 +1,7 @@
 package net.engineeringdigest.journalApp.controller;
 
 import io.swagger.v3.oas.annotations.tags.Tag;
+import lombok.extern.slf4j.Slf4j;
 import net.engineeringdigest.journalApp.entity.JournalEntry;
 import net.engineeringdigest.journalApp.entity.Users;
 import net.engineeringdigest.journalApp.service.JournalEntryService;
@@ -18,6 +19,7 @@ import java.util.stream.Collectors;
 @RestController
 @RequestMapping("/journal")
 @Tag(name="Journal APIs")
+@Slf4j
 public class JournalEntryController {
 
     @Autowired
